@@ -25,7 +25,7 @@ export const PlayingView: React.FC<PlayingViewProps> = ({
       <div className="absolute inset-0 bg-gradient-radial-t from-transparent via-black/50 to-black pointer-events-none" />
     </div>
 
-    {/* Play-Button für iOS Audio */}
+    {/* Play-Button für iOS */}
     {onPlay && (
       <button
         onClick={onPlay}
