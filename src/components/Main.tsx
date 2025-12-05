@@ -128,8 +128,30 @@ function Main({ accessToken, resetTrigger, isActive }: MainProps) {
   }
 
   if (scannedUrl) {
-    return <PlayingView onReset={resetToStart} onScanAgain={resetScanner} />;
+    return (
+      <PlayingView
+        onReset={resetToStart}
+        onScanAgain={resetScanner}
+        onPlay={() => {
+          if (spotifyPlayer && scannedUrl && deviceId) {
+            const spotifyUri = scannedUrl
+              .replace("https://open.spotify.com/track/", "spotify:track:")
+              .split("?")[0];
+
+            fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
+              method: "PUT",
+              body: JSON.stringify({ uris: [spotifyUri] }),
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+              },
+            });
+          }
+        }}
+      />
+    );
   }
+
 
   return isScanning ? (
     <div className="w-full max-w-md rounded-lg overflow-hidden shadow-2xl shadow-[#1DB954]/20">
