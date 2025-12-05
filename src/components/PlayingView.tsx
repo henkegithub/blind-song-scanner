@@ -5,11 +5,13 @@ import spotifyLogo from "../assets/img/Spotify_Full_Logo_RGB_Green.png";
 interface PlayingViewProps {
   onReset: () => void;
   onScanAgain: () => void;
+  onPlay?: () => void; // optionaler Play-Callback
 }
 
 export const PlayingView: React.FC<PlayingViewProps> = ({
   onReset,
   onScanAgain,
+  onPlay,
 }) => (
   <div className="bg-black flex flex-col items-center justify-center p-4">
     <div className="flex flex-col items-center relative">
@@ -22,6 +24,17 @@ export const PlayingView: React.FC<PlayingViewProps> = ({
       <Equalizer />
       <div className="absolute inset-0 bg-gradient-radial-t from-transparent via-black/50 to-black pointer-events-none" />
     </div>
+
+    {/* Play-Button für iOS Audio */}
+    {onPlay && (
+      <button
+        onClick={onPlay}
+        className="bg-[#1DB954] text-black font-bold py-3 px-8 rounded-full hover:bg-[#1ed760] transition-colors transform hover:scale-105 active:scale-95 mb-3"
+      >
+        Play Track
+      </button>
+    )}
+
     <button
       onClick={onScanAgain}
       className="bg-[#1DB954] text-black font-bold py-3 px-8 rounded-full hover:bg-[#1ed760] transition-colors transform hover:scale-105 active:scale-95"
